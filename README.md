@@ -1,0 +1,7 @@
+# `flexgl`
+
+### Running
+
+```
+make run
+```
