@@ -3,10 +3,11 @@
 #include "../includes/flex.h"
 
 typedef struct flex_item flex_item;
+typedef struct widget widget;
 
-typedef struct widget {
+struct widget {
     flex_item *_flex_item;
-} widget;
+};
 
 widget* ui_widget_new(float x, float y, float w, float h) {
     flex_item *itm;
