@@ -2,6 +2,7 @@
 #include <stdbool.h>
 
 #include "ui.h"
+typedef struct widget widget;
 
 #define GLEW_STATIC
 #include <GL/glew.h>
@@ -77,7 +78,17 @@ void key_cb(GLFWwindow *window, int key, int scancode, int action, int mode) {
 }
 
 int main() {
-    ui_create_rect(30.0f, 50.0f);
+    float x = 10.0f;
+    float y = 25.0f;
+    float w = 80.0f;
+    float h = 120.0f;
+    widget *wgt = ui_widget_new(x, y, w, h);
+
+    // World-space coords
+    Vertex verts[4];
+    create_4_verts(verts, x, y, w, h);
+
+    ui_widget_free(wgt);
 
     glfwInit();
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
@@ -175,10 +186,6 @@ int main() {
 
     glDetachShader(shaderProgram, fragmentShader);
     glDeleteShader(fragmentShader);
-
-    // World-space coords
-    Vertex verts[4];
-    create_4_verts(verts, 0.0f, 0.0f, 100.0f, 100.0f);
 
     GLuint indices[] = {
         0, 1, 3,
