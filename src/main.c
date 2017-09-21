@@ -253,21 +253,20 @@ int main(int argc, char** argv) {
     GLint loc_mat_ortho = glGetUniformLocation(shaderProgram, "mOrtho");
     glUniformMatrix4fv(loc_mat_ortho, 1, false, (GLvoid const *)&ortho);
 
+    glBindVertexArray(VAO); // Bind VAO
+
     while (!glfwWindowShouldClose(window)) {
         glfwPollEvents();
 
         glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
 
-        glBindVertexArray(VAO); // Bind VAO
         glDrawElements(GL_TRIANGLES, sizeof(indices), GL_UNSIGNED_INT, 0);
 
         if ((err = glGetError()) != GL_NO_ERROR) {
             printf("glGetError(render): %x\n", err);
             return 1;
         }
-
-        glBindVertexArray(0); // Unbind VAO
 
         glfwSwapBuffers(window);
     }
