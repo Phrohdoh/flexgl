@@ -77,7 +77,7 @@ void key_cb(GLFWwindow *window, int key, int scancode, int action, int mode) {
 }
 
 int main() {
-    ui_create_square(25.0f);
+    ui_create_rect(30.0f, 50.0f);
 
     glfwInit();
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
