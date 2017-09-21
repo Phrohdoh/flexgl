@@ -79,7 +79,6 @@ void key_cb(GLFWwindow *window, int key, int scancode, int action, int mode) {
 int main() {
     ui_do_thing();
 
-    printf("glfw init\n");
     glfwInit();
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
