@@ -10,6 +10,8 @@ flexgl uses Microsoft's MIT-licensed [flex](https://github.com/xamarin/flex) lib
 make run
 ```
 
+Hit `esc` at any time to close the window and abort execution.
+
 ### License
 
 MIT
