@@ -11,35 +11,47 @@ typedef struct widget widget;
 const GLchar *vertexShaderSource =
     "#version 330 core\n"
     "layout (location = 0) in vec2 pos;"
+    "layout (location = 1) in float r;"
+    "layout (location = 2) in float g;"
+    "layout (location = 3) in float b;"
+    "layout (location = 4) in float a;"
     "uniform mat4 mOrtho;"
+    "out vec4 fsColor;"
     "void main() {"
     "    gl_Position = mOrtho * vec4(pos, 0.0, 1.0);"
+    "    fsColor = vec4(r, g, b, a);"
     "}";
 
 const GLchar *fragmentShaderSource =
     "#version 330 core\n"
+    "in vec4 fsColor;"
     "out vec4 color;"
     "void main() {"
-    "    color = vec4(1.0, 0.0, 0.0, 1.0);"
+    "    color = fsColor;"
     "}";
 
 const uint32_t WIDTH = 1024;
 const uint32_t HEIGHT = 768;
 
-typedef struct Vertex {
+typedef struct Vertex Vertex;
+struct Vertex {
     float pos[2];
-} Vertex;
+    float r;
+    float g;
+    float b;
+    float a;
+};
 
-static Vertex _create_vert(float x, float y, float u, float v) {
-    Vertex vv = { { x, y } };
+static Vertex _create_vert(float x, float y, float r, float g, float b, float a) {
+    Vertex vv = { { x, y }, r, g, b, a };
     return vv;
 }
 
-static void create_4_verts(Vertex *verts, float x, float y, float w, float h) {
-    verts[0] = _create_vert(x + 0.0f, y + 0.0f, 0.0f, 0.0f);
-    verts[1] = _create_vert(x + 0.0f, y +    h, 0.0f, 1.0f);
-    verts[2] = _create_vert(x +    w, y +    h, 1.0f, 1.0f);
-    verts[3] = _create_vert(x +    w, y + 0.0f, 1.0f, 0.0f);
+static void create_4_verts(Vertex *verts, float x, float y, float w, float h, float r, float g, float b, float a) {
+    verts[0] = _create_vert(x + 0.0f, y + 0.0f, r, g, b, a);
+    verts[1] = _create_vert(x + 0.0f, y +    h, r, g, b, a);
+    verts[2] = _create_vert(x +    w, y +    h, r, g, b, a);
+    verts[3] = _create_vert(x +    w, y + 0.0f, r, g, b, a);
 }
 
 typedef struct M {
@@ -82,11 +94,19 @@ int main(int argc, char** argv) {
     float y = 25.0f;
     float w = 80.0f;
     float h = 120.0f;
+
+    // These values must be normalized between 0.0 and 1.0
+    float r = 0.2f;
+    float g = 0.7f;
+    float b = 0.1f;
+    float a = 1.0f;
+
     widget *wgt = ui_widget_new(x, y, w, h);
 
-    // World-space coords
+    // TODO: Create a Quad type and impl quad_init(quads, x, y, w, h)
+
     Vertex verts[4];
-    create_4_verts(verts, x, y, w, h);
+    create_4_verts(verts, x, y, w, h, r, g, b, a);
 
     ui_widget_free(wgt);
 
@@ -208,6 +228,18 @@ int main(int argc, char** argv) {
     // Store the pos in attrib 0
     glEnableVertexAttribArray(0);
     glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (GLvoid*)(offsetof(Vertex, pos)));
+
+    glEnableVertexAttribArray(1);
+    glVertexAttribPointer(1, 1, GL_FLOAT, GL_FALSE, sizeof(Vertex), (GLvoid*)(offsetof(Vertex, r)));
+
+    glEnableVertexAttribArray(2);
+    glVertexAttribPointer(2, 1, GL_FLOAT, GL_FALSE, sizeof(Vertex), (GLvoid*)(offsetof(Vertex, g)));
+
+    glEnableVertexAttribArray(3);
+    glVertexAttribPointer(3, 1, GL_FLOAT, GL_FALSE, sizeof(Vertex), (GLvoid*)(offsetof(Vertex, b)));
+
+    glEnableVertexAttribArray(4);
+    glVertexAttribPointer(4, 1, GL_FLOAT, GL_FALSE, sizeof(Vertex), (GLvoid*)(offsetof(Vertex, a)));
 
     // Unbind VAO
     glBindVertexArray(0);
