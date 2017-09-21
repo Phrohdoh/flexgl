@@ -38,7 +38,7 @@ help:
 	@echo ""
 
 $(MACOS_FLEXGL_OUT): $(FLEX_FILES) $(FLEXGL_FILES)
-	@/bin/mkdir -p `/usr/bin/dirname $(MACOS_BUILD_DIR)`
+	/bin/mkdir -p $(MACOS_BUILD_DIR)
 	$(XCODE_CC) $(CFLAGS) $(MACOS_CFLAGS) \
 		$(FLEXGL_SRC) \
 		-lglfw -framework Cocoa -framework OpenGL -framework IOKit -framework CoreVideo -framework Carbon -lGLEW \
