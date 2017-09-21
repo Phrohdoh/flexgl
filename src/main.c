@@ -77,7 +77,7 @@ void key_cb(GLFWwindow *window, int key, int scancode, int action, int mode) {
     }
 }
 
-int main() {
+int main(int argc, char** argv) {
     float x = 10.0f;
     float y = 25.0f;
     float w = 80.0f;
