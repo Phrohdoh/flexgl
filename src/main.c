@@ -192,16 +192,16 @@ int main(int argc, char** argv) {
     glBindVertexArray(VAO);
 
     glBindBuffer(GL_ARRAY_BUFFER, VBO);
-    glBufferData(GL_ARRAY_BUFFER, widget_sizeof(), wgt, GL_STATIC_DRAW);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(widget), wgt, GL_STATIC_DRAW);
 
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, IBO);
     glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
 
     glEnableVertexAttribArray(0);
-    glVertexAttribPointer(0, 1, GL_FLOAT, GL_FALSE, vertex_sizeof(), (GLvoid*)(offsetof(widget, tl.x)));
+    glVertexAttribPointer(0, 1, GL_FLOAT, GL_FALSE, sizeof(vertex), (GLvoid*)(offsetof(widget, tl.x)));
 
     glEnableVertexAttribArray(1);
-    glVertexAttribPointer(1, 1, GL_FLOAT, GL_FALSE, vertex_sizeof(), (GLvoid*)(offsetof(widget, tl.y)));
+    glVertexAttribPointer(1, 1, GL_FLOAT, GL_FALSE, sizeof(vertex), (GLvoid*)(offsetof(widget, tl.y)));
 
     glEnableVertexAttribArray(2);
     glVertexAttribPointer(2, 4, GL_FLOAT, GL_FALSE, sizeof(rgba), (GLvoid*)(offsetof(widget, tl_rgba.r)));

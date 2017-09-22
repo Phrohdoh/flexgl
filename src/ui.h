@@ -16,8 +16,6 @@ struct vertex {
     float y;
 };
 
-uint32_t vertex_sizeof(void);
-
 struct widget {
     struct flex_item *_flex_item;
     struct vertex tl;
@@ -39,6 +37,5 @@ float widget_get_width(struct widget *w);
 float widget_get_height(struct widget *w);
 float widget_get_pos_x(struct widget *w);
 float widget_get_pos_y(struct widget *w);
-uint32_t widget_sizeof(void);
 
 #endif /* _FLEXGL_UI_ */

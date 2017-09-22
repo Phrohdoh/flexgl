@@ -90,11 +90,3 @@ float widget_get_pos_y(widget *w) {
     float ret = flex_item_get_top(w->_flex_item);
     return ret;
 }
-
-uint32_t widget_sizeof(void) {
-    return sizeof(widget);
-}
-
-uint32_t vertex_sizeof(void) {
-    return sizeof(vertex);
-}
