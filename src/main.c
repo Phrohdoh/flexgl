@@ -227,7 +227,7 @@ int main(int argc, char** argv) {
         glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
 
-        glDrawElements(GL_TRIANGLES, sizeof(indices), GL_UNSIGNED_INT, 0);
+        glDrawElements(GL_TRIANGLES, sizeof(indices), GL_UNSIGNED_INT, NULL);
 
         if ((err = glGetError()) != GL_NO_ERROR) {
             printf("glGetError(render): %x\n", err);
