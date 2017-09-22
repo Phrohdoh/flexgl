@@ -30,8 +30,8 @@ const GLchar *fragmentShaderSource =
     "    color = fsColor;"
     "}";
 
-const uint32_t WIDTH = 1024 / 8;
-const uint32_t HEIGHT = 768 / 8;
+const uint32_t WIDTH = 1024 / 2;
+const uint32_t HEIGHT = 768 / 2;
 
 typedef struct M {
     float m11; float m12; float m13; float m14;
@@ -74,13 +74,23 @@ int main(int argc, char** argv) {
     float w = WIDTH - x * 2.0;
     float h = HEIGHT - y * 2.0;
 
-    rgba color = { 0.0f, 1.0f, 0.0f, 1.0f };
-
-    widget *wgt = widget_new(x, y, w, h, color);
-    if (wgt == NULL) {
-        printf("Failed to create a widget\n");
+    rgba color1 = { 0.0f, 1.0f, 0.0f, 1.0f };
+    widget *wgt1 = widget_new(x, y, w, h, color1);
+    if (wgt1 == NULL) {
+        printf("Failed to create wgt1\n");
         return 1;
     }
+
+    //rgba color2 = { 1.0f, 0.0f, 1.0f, 1.0f };
+    //widget *wgt2 = widget_new(w, y, h, x, color2);
+    //if (wgt2 == NULL) {
+    //    printf("Failed to create wgt2\n");
+    //    return 1;
+    //}
+
+    widget *wgts[] = { wgt1
+    //  , wgt2
+    };
 
     glfwInit();
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
@@ -193,18 +203,17 @@ int main(int argc, char** argv) {
 
     // TODO: Only put vertex data in the VBO.
     glBindBuffer(GL_ARRAY_BUFFER, VBO);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(widget), wgt, GL_STATIC_DRAW);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(widget), wgt1, GL_STATIC_DRAW);
 
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, IBO);
     glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
 
     glEnableVertexAttribArray(0);
-    glVertexAttribPointer(0, 1, GL_FLOAT, GL_FALSE, sizeof(vertex), (GLvoid*)(offsetof(widget, tl.x)));
-
     glEnableVertexAttribArray(1);
-    glVertexAttribPointer(1, 1, GL_FLOAT, GL_FALSE, sizeof(vertex), (GLvoid*)(offsetof(widget, tl.y)));
-
     glEnableVertexAttribArray(2);
+
+    glVertexAttribPointer(0, 1, GL_FLOAT, GL_FALSE, sizeof(vertex), (GLvoid*)(offsetof(widget, tl.x)));
+    glVertexAttribPointer(1, 1, GL_FLOAT, GL_FALSE, sizeof(vertex), (GLvoid*)(offsetof(widget, tl.y)));
     glVertexAttribPointer(2, 4, GL_FLOAT, GL_FALSE, sizeof(rgba), (GLvoid*)(offsetof(widget, tl_rgba.r)));
 
     // Unbind VAO
@@ -242,7 +251,8 @@ int main(int argc, char** argv) {
 
     glfwTerminate();
 
-    widget_free(wgt);
+    widget_free(wgts[0]);
+//  widget_free(wgts[1]);
 
     return 0;
 }
