@@ -11,17 +11,30 @@ struct vertex {
 
 typedef struct vertex vertex;
 
+struct rgba {
+    float r;
+    float g;
+    float b;
+    float a;
+};
+
+typedef struct rgba rgba;
+
 struct widget {
     flex_item *_flex_item;
     vertex tl;
     vertex tr;
     vertex br;
     vertex bl;
+    rgba tl_rgba;
+    rgba tr_rgba;
+    rgba br_rgba;
+    rgba bl_rgba;
 };
 
 typedef struct widget widget;
 
-widget* widget_new(float x, float y, float w, float h) {
+widget* widget_new(float x, float y, float w, float h, rgba color) {
     widget *ret = malloc(sizeof(widget));
     if (ret == NULL) {
         return NULL;
@@ -43,6 +56,10 @@ widget* widget_new(float x, float y, float w, float h) {
     ret->tr = (vertex){ x + w, y     };
     ret->br = (vertex){ x + w, y + h };
     ret->bl = (vertex){ x,     y + h };
+    ret->tl_rgba = color;
+    ret->tr_rgba = color;
+    ret->br_rgba = color;
+    ret->bl_rgba = color;
 
     return ret;
 }

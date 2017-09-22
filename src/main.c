@@ -3,6 +3,7 @@
 
 #include "ui.h"
 typedef struct vertex vertex;
+typedef struct rgba rgba;
 typedef struct widget widget;
 
 #define GLEW_STATIC
@@ -13,15 +14,12 @@ const GLchar *vertexShaderSource =
     "#version 330 core\n"
     "layout (location = 0) in float x;"
     "layout (location = 1) in float y;"
-//  "layout (location = 2) in float r;"
-//  "layout (location = 3) in float g;"
-//  "layout (location = 4) in float b;"
-//  "layout (location = 5) in float a;"
+    "layout (location = 2) in vec4 color;"
     "uniform mat4 mOrtho;"
     "out vec4 fsColor;"
     "void main() {"
     "    gl_Position = mOrtho * vec4(x, y, 0.0, 1.0);"
-    "    fsColor = vec4(0.0, 0.0, 1.0, 1.0);"
+    "    fsColor = color;"
     "}";
 
 const GLchar *fragmentShaderSource =
@@ -76,13 +74,9 @@ int main(int argc, char** argv) {
     float w = WIDTH - x * 2.0;
     float h = HEIGHT - y * 2.0;
 
-    // These values must be normalized between 0.0 and 1.0
-    //float r = 0.2f;
-    //float g = 0.7f;
-    //float b = 0.1f;
-    //float a = 1.0f;
+    rgba color = { 0.0f, 1.0f, 0.0f, 1.0f };
 
-    widget *wgt = widget_new(x, y, w, h);
+    widget *wgt = widget_new(x, y, w, h, color);
     if (wgt == NULL) {
         printf("Failed to create a widget\n");
         return 1;
@@ -209,8 +203,8 @@ int main(int argc, char** argv) {
     glEnableVertexAttribArray(1);
     glVertexAttribPointer(1, 1, GL_FLOAT, GL_FALSE, vertex_sizeof(), (GLvoid*)(offsetof(widget, tl.y)));
 
-    //glEnableVertexAttribArray(2);
-    //glVertexAttribPointer(2, 1, GL_FLOAT, GL_FALSE, vertex_sizeof(), (GLvoid*)(offsetof(vertex, y)));
+    glEnableVertexAttribArray(2);
+    glVertexAttribPointer(2, 4, GL_FLOAT, GL_FALSE, sizeof(rgba), (GLvoid*)(offsetof(widget, tl_rgba.r)));
 
     // Unbind VAO
     glBindVertexArray(0);
