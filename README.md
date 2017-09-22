@@ -2,7 +2,7 @@
 
 ### Screenshots
 
-![single-quad](./screenshots/single-quad.png)
+![flexgl](./screenshots/flexgl.png)
 
 ### Information
 
