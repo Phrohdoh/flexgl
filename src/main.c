@@ -83,6 +83,10 @@ int main(int argc, char** argv) {
     //float a = 1.0f;
 
     widget *wgt = widget_new(x, y, w, h);
+    if (wgt == NULL) {
+        printf("Failed to create a widget\n");
+        return 1;
+    }
 
     glfwInit();
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
