@@ -32,8 +32,8 @@ const GLchar *fragmentShaderSource =
     "    color = fsColor;"
     "}";
 
-const uint32_t WIDTH = 1024;
-const uint32_t HEIGHT = 768;
+const uint32_t WIDTH = 1024 / 8;
+const uint32_t HEIGHT = 768 / 8;
 
 typedef struct M {
     float m11; float m12; float m13; float m14;
