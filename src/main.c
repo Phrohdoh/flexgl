@@ -72,9 +72,9 @@ void key_cb(GLFWwindow *window, int key, int scancode, int action, int mode) {
 
 int main(int argc, char** argv) {
     float x = 10.0f;
-    float y = 25.0f;
-    float w = 80.0f;
-    float h = 120.0f;
+    float y = 10.0f;
+    float w = WIDTH - x * 2.0;
+    float h = HEIGHT - y * 2.0;
 
     // These values must be normalized between 0.0 and 1.0
     //float r = 0.2f;
