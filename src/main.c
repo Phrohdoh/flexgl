@@ -99,7 +99,7 @@ int main(int argc, char** argv) {
     if (window == NULL) {
         printf("Failed to create GLFW window\n");
         glfwTerminate();
-        return -1;
+        return 1;
     }
 
     glfwMakeContextCurrent(window);
@@ -107,7 +107,7 @@ int main(int argc, char** argv) {
 
     if (glewInit() != GLEW_OK) {
         printf("Failed to init GLEW\n");
-        return -1;
+        return 1;
     }
 
     int width, height;
