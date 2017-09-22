@@ -1,7 +1,7 @@
 .PHONY = help clean run all
 .DEFAULT_GOAL := all
 
-FLEX_DIR = ./libs
+LIBS_DIR = ./libs
 
 BASE_NAME = flexgl
 FLEXGL_SRC = ./src/ui.c ./src/main.c
@@ -9,7 +9,7 @@ FLEXGL_FILES = ./src/ui.h ./src/ui.c ./src/main.c
 
 BUILD_DIR = ./build
 
-CFLAGS = -Wall -Werror -O3 -arch x86_64 -std=c11 -L$(FLEX_DIR) -lflex 
+CFLAGS = -Wall -Werror -O3 -arch x86_64 -std=c11 -L$(LIBS_DIR) -lflex
 LDFLAGS =
 
 MACOS_MIN_TARGET = '10.10'
