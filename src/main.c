@@ -191,6 +191,7 @@ int main(int argc, char** argv) {
 
     glBindVertexArray(VAO);
 
+    // TODO: Only put vertex data in the VBO.
     glBindBuffer(GL_ARRAY_BUFFER, VBO);
     glBufferData(GL_ARRAY_BUFFER, sizeof(widget), wgt, GL_STATIC_DRAW);
 
